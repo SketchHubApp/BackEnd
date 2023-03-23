@@ -1,12 +1,38 @@
 const userService = require('../service/user_service');
-const userRepository = require("../repository/user_repository");
 
 // 회원가입
 exports.signUp = async(req, res, next) => {
-    const { id, pw, name, email, bitrh, sex, nation } = req.body;
+    // const { id, pw, name, email, bitrhday, sex, nation } = req.body;
+    // test data
+    const { id, pw, name, email, birthday, sex, nation } = {
+        id:'kys',
+        pw:'1234',
+        name:'kim',
+        email:'kys@gmail.com',
+        birthday:'20000411',
+        sex: 1,
+        nation:'korea'
+    }
+
     try{
-        await userService.createUser(id, pw)
-            .then(async () => await userService.createAuthentication(name, email, bitrh, sex, nation)).then(()=> res.redirect('/'));
+        let confirmId = await userService.readUserId(id, next);
+        if(!confirmId){
+            await userService.createUser(id, pw, next)
+                .then(async () => await userService.createAuthentication(name, email, birthday, sex, nation))
+                .then(()=> res.redirect('/'))
+        }
+        else{
+            // 중복된 ID가 있을 경우.
+            res.redirect('/');
+        }
+    } catch(err){
+        console.error(err);
+        next(err);
+    }
+}
+exports.signUpPage = (req, res, next) => {
+    try{
+        res.render('signUp');
     } catch(err){
         console.error(err);
         next(err);
