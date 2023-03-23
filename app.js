@@ -1,6 +1,7 @@
 const path = require('path');
 
 const dotenv = require('dotenv');
+const favicon = require('serve-favicon');
 
 const express = require('express');
 const morgan = require('morgan');
@@ -27,14 +28,17 @@ nunjucks.configure(path.join(__dirname, 'views'), {
 });
 
 sequelize.sync({ force: false })
-  .then(() => console.log('Database connection successful!!!'))
+  .then(() => console.log('Database connection successful!!'))
   .catch(err => console.error(err));
+
+app.use(favicon(path.join(__dirname, 'public/images', 'logo.jpg')));
 
 app.use(
     morgan('dev'),
     express.static(path.join(__dirname, 'public')),
     express.json(),
     express.urlencoded({ extended: false }),
+
     cookieParser(process.env.SECRET),
     session({
         resave: false,
@@ -48,12 +52,11 @@ app.use(
     })
 );
 
-app.use('/user', userRouter);
-app.use('/login', loginRouter);
-// app.use('/', indexRouter);
+app.use('/', loginRouter);  // login router
+app.use('/user', userRouter);  // user router
 
 app.use((req, res) =>
-    res.render('index', {
+    res.render('test', {
         title: require('./package.json').name,
         port: app.get('port')
     }));
