@@ -14,7 +14,7 @@ module.exports = class User extends Sequelize.Model {
                 allowNull: false
             },
             password: { // user password
-                type: Sequelize.STRING(50),
+                type: Sequelize.STRING(500),
                 allowNull: false
             },
             login_type: { // 0: normal, 1: social
@@ -34,8 +34,8 @@ module.exports = class User extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User.hasMany(db.Profile, { foreignKey: 'userId', sourceKey: 'userNo', onDelete: 'cascade' });
-        db.User.hasMany(db.SocialLogin, { foreignKey: 'userId', sourceKey: 'userNo', onDelete: 'cascade' });
-        db.User.hasMany(db.Authentication, { foreignKey: 'userId', sourceKey: 'userNo', onDelete: 'cascade' });
+        db.User.hasMany(db.Profile, { foreignKey: 'userNo', sourceKey: 'userNo', onDelete: 'cascade' });
+        db.User.hasMany(db.SocialLogin, { foreignKey: 'userNo', sourceKey: 'userNo', onDelete: 'cascade' });
+        db.User.hasMany(db.Authentication, { foreignKey: 'userNo', sourceKey: 'userNo', onDelete: 'cascade' });
     }
 };

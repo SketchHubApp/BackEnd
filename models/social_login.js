@@ -33,6 +33,6 @@ module.exports = class SocialLogin extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.SocialLogin.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'userNo' });
+        db.SocialLogin.belongsTo(db.User, { foreignKey: 'userNo', targetKey: 'userNo' });
     }
 };

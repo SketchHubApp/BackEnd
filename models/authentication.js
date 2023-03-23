@@ -41,6 +41,6 @@ module.exports = class Authentication extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Authentication.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'userNo' });
+        db.Authentication.belongsTo(db.User, { foreignKey: 'userNo', targetKey: 'userNo' });
     }
 };
