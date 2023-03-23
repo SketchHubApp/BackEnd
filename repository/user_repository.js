@@ -3,14 +3,15 @@ const Profile = require('../models/profile');
 const Authentication = require('../models/authentication');
 
 // read user ID
-exports.readUser = async (id, pw) => await User.findOne({
-    where: {user_name: id}
-});
+exports.readUser = async (id) => await User.findOne({
+    where: { user_name : id }
+})
 
 // crate user
 exports.createUser = async (id, pw) => await User.create({
     user_name: id,
-    password: pw
+    password: pw,
+    login_type:1 // 일단 test
 });
 
 // crate authentication
