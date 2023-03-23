@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 // 로그인 인증
 exports.userAuth = async(id, pw, next) => {
     try {
-        const user = userRepository.readUser(id);
-        const auth = await bcrypt.compare(pw, user.password);
+        const user = await userRepository.readUser(id);
+        const auth = await bcrypt.compare(``+pw, user.password);
         if(user && auth) return user.userNo;
         else console.log('잘못된 ID, PW');
     } catch(err){
