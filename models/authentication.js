@@ -21,6 +21,10 @@ module.exports = class Authentication extends Sequelize.Model {
                 type: Sequelize.STRING(20),
                 allowNull: false
             },
+            phone: {
+                type: Sequelize.STRING(80),
+                allowNull: false
+            },
             sex: {
                 type: Sequelize.TINYINT,
                 allowNull: false
@@ -41,6 +45,6 @@ module.exports = class Authentication extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.Authentication.belongsTo(db.User, { foreignKey: 'userNo', targetKey: 'userNo' });
+        db.Authentication.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'userNo' });
     }
 };

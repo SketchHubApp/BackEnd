@@ -4,10 +4,13 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controller/user_controller');
 
-// read user router
+// create profile
+router.get('/profile', userController.createProfilePage);
+router.post('/profile', userController.createProfile);
 
-// update user router
+// update profile
 
-// delete user router
+
+// delete profile
 
 module.exports = router;
