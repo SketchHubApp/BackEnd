@@ -8,7 +8,7 @@ const userController = require('../controller/user_controller');
 router.get('/login', loginController.loginPage);
 router.post("/login", loginController.login);
 
-// logout router    <- sketch 쪽으로 갈 수 있음
+// logout router    <- sketch_router 로 갈 수 있음
 
 // signUp router
 router.get('/signUp', userController.signUpPage);
@@ -19,6 +19,6 @@ router.post('/signUp', userController.signUp);
 
 // find PW router
 
-// cancel router
+// cancel router (나가기)
 
 module.exports = router;
