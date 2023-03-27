@@ -1,6 +1,7 @@
 const userRepository = require('../repository/user_repository');
 const authRepository = require('../repository/auth_repository');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 
 // 회원가입 ID, PW 생성
 exports.createUser = async (id, pw, next) => {
@@ -62,6 +63,15 @@ exports.updatePw = async (userId, newPw, next) => {
     try {
         let newHashPw = await bcrypt.hash(newPw, 8);
         await userRepository.updateUserPw(userId, newHashPw);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
+exports.createProfile = async (nickname, introduce, next) => {
+    try {
+        console.log('test')
     } catch (err) {
         console.error(err);
         next(err);

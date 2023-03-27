@@ -66,10 +66,12 @@ exports.createProfilePage = (req, res, next) => {
 }
 
 // create profile
-exports.createProfile = (req, res, next) => {
-    const {nickname, introduce} = {nickname: '스즈메', introduce: '레드 윔프스 노래 들읍시다.'};
-    try {
+exports.createProfile = async (req, res, next) => {
+    console.log(req.file)
 
+    const {nickname, introduce} = {introduce: '레드 윔프스 노래 들읍시다.'};
+    try {
+        await userService.createProfile(nickname, introduce, next).then(()=> res.redirect('/'))
     } catch (err) {
         console.error(err);
         next(err);
