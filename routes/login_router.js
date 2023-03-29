@@ -5,8 +5,8 @@ const loginController = require('../controller/login_controller');
 const userController = require('../controller/user_controller');
 
 // login router
-router.get('/login', loginController.loginPage);
-router.post("/login", loginController.login);
+//router.get('/login', loginController.loginPage);
+router.post("/", loginController.login);
 
 // logout router    <- sketch 쪽으로 갈 수 있음
 
