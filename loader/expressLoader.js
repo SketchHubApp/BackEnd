@@ -6,6 +6,7 @@ const session = require('express-session');
 const path = require('path');
 const dotenv = require('dotenv');
 const favicon = require('serve-favicon');
+const bodyParser = require('body-parser');
 
 module.exports = async(expressApp)=>{
     dotenv.config();
@@ -20,6 +21,8 @@ module.exports = async(expressApp)=>{
     });
     //http://localhost:3000/login
     expressApp.use('/login', loginRouter);  // login router
+
+    //expressApp.use('/signUp', loginRouter);
 
     //http://localhost:3000/user
     expressApp.use('/user', userRouter);  // user router

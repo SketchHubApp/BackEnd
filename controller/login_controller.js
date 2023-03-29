@@ -9,17 +9,14 @@ const loginService = require('../service/login_service');
 //     }
 // }
 
-exports.login = async (req, res, next) => {
-    //const {id, pw} = req.body;
-    //const { id, pw } = {id:'kimjunbeom', pw:"hk0301234"};
+exports.login = async (req,res,next) => {
     try {
-        console.log(res.body);
-        let auth = await loginService.userAuth(id, pw, next); // user Num 리턴됨
-        if (auth) res.render('sketch'); // success login, connect flutter
+        console.log(req.body);
+        let auth = await loginService.userAuth(req.body.id, req.body.pw, next); // user Num 리턴됨
+        if (auth) res.send('sketch'); // success login, connect flutter
         else {
             console.log('fail');
             res.send("fail");
-            //res.redirect('/'); // fail login
         }
     } catch (err) {
         console.error(err);

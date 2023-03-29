@@ -6,7 +6,11 @@ const userController = require('../controller/user_controller');
 
 // login router
 //router.get('/login', loginController.loginPage);
-router.post("/", loginController.login);
+router.route("/")
+.post(async(req,res,next)=>{
+    await loginController.login(req,res,next);
+});
+//router.post(async(req,res,next) => await loginController.login(req,res,next));
 
 // logout router    <- sketch 쪽으로 갈 수 있음
 
