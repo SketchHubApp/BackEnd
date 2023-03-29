@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Profile = require('../models/profile');
+const {where} = require("sequelize");
 
 // read user ID
 exports.readUser = async (id) => await User.findOne({
@@ -18,3 +19,14 @@ exports.createUser = async (id, pw) => await User.create({
 // update user password
 exports.updateUserPw = async (id, pw) => await User.update({password: pw}, {where: {user_name: id}})
 
+// create profile
+exports.createProfile = async (nickname, introduce) => await Profile.create({
+    nickname: nickname,
+    introduce: introduce
+});
+
+// update profile
+exports.updateProfile = async (nickname, introduce, id) => await Profile.update({
+    nickname: nickname,
+    introduce: introduce
+}, {where:{profile_id: id}})

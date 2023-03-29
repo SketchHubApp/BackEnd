@@ -5,7 +5,7 @@ exports.signUp = async (req, res, next) => {
     // const { id, pw, name, email, bitrhday, phone, sex, nation } = req.body;
     // test data
     const {id, pw, name, email, birthday, phone, sex, nation} = {
-        id: 'kys',
+        id: 'kys1234',
         pw: '1234',
         name: 'kim',
         email: 'kys@gmail.com',
@@ -17,9 +17,18 @@ exports.signUp = async (req, res, next) => {
     try {
         let confirmId = await userService.readUserId(id, next);
         if (!confirmId) {
-            await userService.createUser(id, pw, next)
-                .then(async () => await userService.createAuthentication(name, email, birthday, phone, sex, nation))
-                .then(() => res.redirect('/'))
+            // await userService.createUser(id, pw, next)
+            //     .then(async () => await userService.createAuthentication(name, email, birthday, phone, sex, nation))
+            //     .then(() => res.redirect('/'))
+            console.log('1')
+            let user = await userService.createUser(id, pw, next);
+            req.session.id = user.userNo;
+            req.cookies.uid = user.user_name;
+            console.log('test')
+            console.log(user.userNo, user.user_name)
+            await userService.createAuthentication(name, email, birthday, phone, sex, nation);
+            req.session.save().then(() => res.redirect('/'))
+            // res.redirect('/');
         } else {
             // 중복된 ID가 있을 경우.
             res.redirect('/');
@@ -67,11 +76,30 @@ exports.createProfilePage = (req, res, next) => {
 
 // create profile
 exports.createProfile = async (req, res, next) => {
-    console.log(req.file)
-
-    const {nickname, introduce} = {introduce: '레드 윔프스 노래 들읍시다.'};
+    const {nickname, introduce} = {nickname: '스즈메', introduce: '평점: 4.1'};
     try {
-        await userService.createProfile(nickname, introduce, next).then(()=> res.redirect('/'))
+        await userService.createProfile(nickname, introduce, next)
+            .then(() => res.redirect('/'))
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
+// profile 수정 페이지
+exports.updateProfilePage = async (req, res, next) => {
+    try {
+        res.render('updateProfile');
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+// profile 수정
+exports.updateProfile = async (req, res, next) => {
+    const {nickname, introduce} = {nickname: '다이진', introduce: '고양고양이'};
+    try {
+        await userService.updateProfile(nickname, introduce);
     } catch (err) {
         console.error(err);
         next(err);

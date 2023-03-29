@@ -13,11 +13,16 @@ exports.loginPage = async (req, res, next) => {
 // login
 exports.login = async (req, res, next) => {
     // const {id, pw} = req.body;
-    const {id, pw} = {id: 'kys', pw: '1234'};
+    const id = req.body.id;
+    const pw = req.body.pw;
+    // const {id, pw} = {id: 'kys', pw: '1234'};
+    console.log(id, pw);
     try {
         let auth = await loginService.userAuth(id, pw, next); // user Num 리턴됨
-        if (auth) res.render('sketch'); // success login, connect flutter
-        else {
+        if (auth) {
+            // res.session = ;
+            res.render('sketch'); // success login, connect flutter
+        } else {
             console.log('fail');
             res.redirect('/'); // fail login
         }

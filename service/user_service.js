@@ -8,7 +8,7 @@ exports.createUser = async (id, pw, next) => {
     try {
         // pw 암호화
         const cryptoPassword = await bcrypt.hash(pw, 8);
-        await userRepository.createUser(id, cryptoPassword);
+        return await userRepository.createUser(id, cryptoPassword);
     } catch (err) {
         console.error(err);
         next(err);
@@ -68,10 +68,20 @@ exports.updatePw = async (userId, newPw, next) => {
         next(err);
     }
 }
-
+// 프로필 생성
 exports.createProfile = async (nickname, introduce, next) => {
     try {
-        console.log('test')
+        await userRepository.createProfile(nickname, introduce);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
+exports.updateProfile = async (nickname, introduce, next) => {
+    try {
+        id = '1' // 세션 정보 넣기
+        await userRepository.updateProfile(nickname, introduce, id);
     } catch (err) {
         console.error(err);
         next(err);
