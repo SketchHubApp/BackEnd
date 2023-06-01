@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 exports.userAuth = async(id, pw, next) => {
     try {
         const user = await userRepository.readUser(id);
-        console.log(user.password);
         //const auth = await bcrypt.compare(``+pw, user.password);
         //if(user && auth) return user.userNo;
         if(user) return user.userNo;

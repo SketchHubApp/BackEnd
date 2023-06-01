@@ -26,7 +26,6 @@ async function startServer() {
         ws.on('message', (message) => {
             const data = JSON.parse(message);
             const { x, y, user_name: userName, room_id: roomId } = data;
-
             if (typeof x !== 'undefined' && typeof y !== 'undefined') {
                 console.log(`${userName} - x: ${x}, y: ${y}`);
                 if (!rooms.has(roomId)) {
@@ -47,8 +46,6 @@ async function startServer() {
                 console.log(`${userName} 접속`);
             }
         });
-
-
         ws.on('close', () => {
             console.log('클라이언트가 연결을 해제했습니다.');
 
