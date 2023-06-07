@@ -14,7 +14,7 @@ router.route('/create-work').post((req, res, next) => workspaceController.create
 // 작업자 초대하기
 router.route('/create-work/invite').post((req, res, next) => workspaceController.inviteUser(req, res, next));
 
-// 협업자 정보 가져오기
+// 협업자 정보 가져오기 http://localhost:3000/workspace/collaborator-info?id=kys1
 router.route('/collaborator-info').get((req, res, next) => workspaceController.getCollaborator(req, res, next));
 
 // 작업 나가기 (작업 공간 탈퇴)
