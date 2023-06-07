@@ -1,5 +1,6 @@
 const userRouter = require('../routes/user_router');
 const loginRouter = require('../routes/login_router');
+const workspaceRouter = require('../routes/workspace_router');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -26,6 +27,9 @@ module.exports = async(expressApp)=>{
 
     //http://localhost:3000/user
     expressApp.use('/user', userRouter);  // user router
+
+    // http://localhost:3000/workspace
+    expressApp.use('/workspace', workspaceRouter); // workspace router
 
     return expressApp;
 }
