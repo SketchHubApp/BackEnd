@@ -34,8 +34,15 @@ module.exports = class User extends Sequelize.Model {
     }
 
     static associate(db) {
-        db.User.hasMany(db.Profile, { foreignKey: 'userNo', sourceKey: 'userNo', onDelete: 'cascade' });
-        db.User.hasMany(db.SocialLogin, { foreignKey: 'userNo', sourceKey: 'userNo', onDelete: 'cascade' });
-        db.User.hasMany(db.Authentication, { foreignKey: 'userNo', sourceKey: 'userNo', onDelete: 'cascade' });
+        // db.User.hasMany(db.Profile, { foreignKey: 'userId', sourceKey: 'userNo', onDelete: 'cascade' });
+        // db.User.hasMany(db.SocialLogin, { foreignKey: 'userId', sourceKey: 'userNo', onDelete: 'cascade' });
+        // db.User.hasMany(db.Authentication, { foreignKey: 'userId', sourceKey: 'userNo', onDelete: 'cascade' });
+        db.User.hasMany(db.Workspace, { foreignKey: 'userNo', sourceKey: 'userNo', onDelete: 'cascade' });
+        db.User.belongsToMany(db.Workspace, {
+            through: db.UserWorkspace,
+            foreignKey: 'userNo',
+            otherKey: 'roomId',
+            onDelete: 'cascade'
+        });
     }
 };
