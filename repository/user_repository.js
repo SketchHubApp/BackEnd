@@ -22,3 +22,26 @@ exports.createAuthentication = async (name, email, bitrh, sex, nation) => await 
     sex: sex,
     nation: nation
 });
+
+exports.readUserById = async(id) => await User.findOne({
+    where:{
+        user_name:id
+    }
+})
+
+exports.readUserByEmail = async(email) => await Authentication.findOne({
+    where:{email:email}
+})
+
+
+//  더미 데이터
+// {
+//     "id": "jjj",
+//     "pw": "hk0301234",
+
+//     "name": "junbeom",
+//     "email": "kjb@gmail.com",
+//     "birthday": 011003,
+//     "sex": 1,
+//     "nation": "korea"
+// }
