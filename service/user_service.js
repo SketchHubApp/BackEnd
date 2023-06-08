@@ -21,7 +21,6 @@ exports.createAuthentication = async(name, email, bitrh, sex, nation, next) => {
         next(err);
     }
 }
-
 // ID 중복 검사
 exports.readUserId = async(id, next) => {
     try {
@@ -30,4 +29,35 @@ exports.readUserId = async(id, next) => {
         console.error(err);
         next(err);
     }
+}
+exports.findUserIDByEmail= async(email,next)=>{
+    try{
+        return await userRepository.readUserByEmail(email)
+    }catch{
+        return null;
+    }
+}
+exports.findUserPWUsingID = async(email,id,next)=>{
+    try{
+       let user =  await userRepository.readUserById(id);
+       let userName = await userRepository.readUserByEmail(email);
+       if(userName.name == user.user_name){
+           return {
+               status:200,
+               message:"비밀번호 재설정 링크",
+               url:"http://localhost:2022/change-password",
+            };
+       }else{
+           return {
+            status:400,
+            message:"정보가 틀립니다."
+         };
+       }
+    }catch{
+        return {
+            status:400,
+            message:"정보가 틀립니다."
+         };
+    }
+
 }
