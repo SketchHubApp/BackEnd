@@ -1,12 +1,12 @@
 const userRouter = require('../routes/user_router');
 const loginRouter = require('../routes/login_router');
+const workspaceRouter = require('../routes/workspace_router');
 const logoutRouter = require('../routes/logout_router');
 const sigupRouter = require('../routes/sigup_router');
 const sketchRouter = require('../routes/sketch_router');
 const passport = require('passport');
 const express = require('express');
 const passportConfig = require('../passport/index.js');
-
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -52,7 +52,13 @@ module.exports = async(expressApp)=>{
     //http://localhost:3000/user
     expressApp.use('/user', userRouter);  // user router
 
+
+    // http://localhost:3000/workspace
+    expressApp.use('/workspace', workspaceRouter); // workspace router
+
+    return expressApp;
+
     //http://localhost:3000/sketch
-    //expressApp.use('/sketch', sketchRouter);
+    //expressApp.use('/sketch', sketchR
 }
 
