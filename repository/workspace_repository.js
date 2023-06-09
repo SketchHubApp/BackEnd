@@ -20,6 +20,28 @@ exports.readWorkspaces = async (id) => {
     }
 };
 
+exports.openWorkspace = async (id, roomId) => {
+    try {
+        // user_workspace_id에 해당하는 데이터 조회
+        const userWorkspaces = await UserWorkspace.findAll({where: { userNo:id }});
+        // 조회된 모든 데이터에 대해서 반복문 실행
+        for (const userWorkspace of userWorkspaces) {
+            // userNo과 roomId 값이 일치하는지 확인
+            if (userWorkspace.roomId === Number(roomId)) {
+                // 일치하는 경우 처리할 로직 작성
+                console.log('userNo과 roomId 값이 일치합니다.');
+                return userWorkspace;
+            } else {
+                // 일치하지 않는 경우 처리할 로직 작성
+                console.log('userNo과 roomId 값이 일치하지 않습니다.');
+            }
+        }
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 // roomId를 통해 해당 Workspace에 참여하는 User 목록 조회
 exports.getWorkspaceUsers = async (roomId) => {
     try {

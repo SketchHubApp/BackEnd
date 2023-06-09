@@ -17,12 +17,12 @@ exports.getWorkspaces = async (req,res,next) => {
 }
 
 // 작업 공간 열기
-exports.openWorkspace = (req, res, next) => {
+exports.openWorkspace = async (req, res, next) => {
     try {
+        const { id, roomId } = req.query
+        const workspace = await workspaceService.openWorkspace(id, roomId);
 
-        // 작업 공간 열기 및 필요한 작업 수행
-
-        res.json({ workspaceRoom });
+        res.json(workspace);
     } catch (err) {
         console.error(err);
         next(err);

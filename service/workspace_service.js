@@ -11,6 +11,15 @@ exports.getWorkspaces = async (id) => {
     }
 };
 
+exports.openWorkspace = async (id, roomId) => {
+    try {
+        return await workspaceRepository.openWorkspace(id, roomId);
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 // workspace 생성
 exports.createWorkspace = async (workspaceName, creator, collaborator) => {
     try {
@@ -29,4 +38,4 @@ exports.getCollaborators = async (userId, roomName) => {
         console.error(err);
         throw err;
     }
-}
+};

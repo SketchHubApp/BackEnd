@@ -5,7 +5,7 @@ const router = express.Router();
 // 모든 작업 가져오기 http://localhost:3000/workspace/my-work?id=1
 router.route('/my-work').get((req, res, next) => workspaceController.getWorkspaces(req, res, next));
 
-// 작업 공간 열기
+// 작업 공간 열기 http://localhost:8080/workspace/open-work?id=1&roomId=3
 router.route('/open-work').get((req, res, next) => workspaceController.openWorkspace(req, res, next));
 
 // 작업 생성하기 http://localhost:3000/workspace/create-work
