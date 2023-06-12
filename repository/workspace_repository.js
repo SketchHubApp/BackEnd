@@ -127,3 +127,25 @@ exports.getCollaborators = async (userId, roomName) => {
         console.error(err);
     }
 }
+
+exports.leaveWorkspace = async (userWorkspaceId) => {
+    try {
+        let msg;
+        const userWorkspace = await UserWorkspace.findByPk(userWorkspaceId);
+        const workspace = await Workspace.findByPk(userWorkspace.userNo);
+        if (userWorkspace.userNo === workspace.userNo && userWorkspace.roomName === workspace.roomName) {
+            console.log(`user_workspace_id ${userWorkspaceId}이 ${userWorkspace.roomName}의 방장이라 삭제할 수 없습니다.`);
+            msg = 'creator';
+        } else if (userWorkspace) {
+            await UserWorkspace.destroy({ where: { user_workspace_id: userWorkspaceId } });
+            console.log(`user_workspace_id ${userWorkspaceId}에 해당하는 user를 삭제하였습니다.`);
+            msg = 'success';
+        } else {
+            console.log(`user_workspace_id ${userWorkspaceId}에 해당하는 user가 없습니다.`);
+            msg = 'fail';
+        }
+        return msg;
+    } catch (err) {
+        console.error(err);
+    }
+}

@@ -75,10 +75,11 @@ exports.getCollaborator = async (req,res,next) => {
 exports.leaveWorkspace = async (req,res,next) => {
     try {
         // 작업 공간 탈퇴 및 필요한 작업 수행
-        // ...
+        const userWorkspaceId = req.query.userWorkspaceId;
+        // 작업 메세지
+        const msg = await workspaceService.leaveWorkspace(userWorkspaceId);
 
-        // 예시: 탈퇴 완료 메시지 반환
-        res.json({ message: 'Left the workspace successfully' });
+        res.json({ message: msg });
     } catch (err) {
         console.error(err);
         next(err);
