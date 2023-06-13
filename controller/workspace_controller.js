@@ -17,12 +17,12 @@ exports.getWorkspaces = async (req,res,next) => {
 }
 
 // 작업 공간 열기
-exports.openWorkspace = (req, res, next) => {
+exports.openWorkspace = async (req, res, next) => {
     try {
+        const { id, roomId } = req.query
+        const workspace = await workspaceService.openWorkspace(id, roomId);
 
-        // 작업 공간 열기 및 필요한 작업 수행
-
-        res.json({ workspaceRoom });
+        res.json(workspace);
     } catch (err) {
         console.error(err);
         next(err);
@@ -75,10 +75,11 @@ exports.getCollaborator = async (req,res,next) => {
 exports.leaveWorkspace = async (req,res,next) => {
     try {
         // 작업 공간 탈퇴 및 필요한 작업 수행
-        // ...
+        const userWorkspaceId = req.query.userWorkspaceId;
+        // 작업 메세지
+        const msg = await workspaceService.leaveWorkspace(userWorkspaceId);
 
-        // 예시: 탈퇴 완료 메시지 반환
-        res.json({ message: 'Left the workspace successfully' });
+        res.json({ message: msg });
     } catch (err) {
         console.error(err);
         next(err);

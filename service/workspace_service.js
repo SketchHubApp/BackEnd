@@ -11,7 +11,17 @@ exports.getWorkspaces = async (id) => {
     }
 };
 
-// workspace 생성
+// 작업 공간 열기
+exports.openWorkspace = async (id, roomId) => {
+    try {
+        return await workspaceRepository.openWorkspace(id, roomId);
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
+// 작업 공간 생성
 exports.createWorkspace = async (workspaceName, creator, collaborator) => {
     try {
         return await workspaceRepository.createWorkspace(workspaceName, creator, collaborator);
@@ -25,6 +35,16 @@ exports.createWorkspace = async (workspaceName, creator, collaborator) => {
 exports.getCollaborators = async (userId, roomName) => {
     try {
         return await workspaceRepository.getCollaborators(userId, roomName);
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
+// 작업 공간 탈퇴
+exports.leaveWorkspace = async (userWorkspaceId) => {
+    try {
+        return await workspaceRepository.leaveWorkspace(userWorkspaceId);
     } catch (err) {
         console.error(err);
         throw err;
